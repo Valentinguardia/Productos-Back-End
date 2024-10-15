@@ -1,20 +1,24 @@
 import models from "../models/index.js";
 
-const { Products } = models;
+const { Products, Brands } = models;
 
 const productsController = {
   createProducts: async (req, res) => {
-    const { name, description, image_url, price } = req.body;    
+    const { name, description, image_url, price, brandId } = req.body;    
+    if (!brandId)return res.status(400).json({ message: "La marca es obligatoria." }); 
     if (!name)return res.status(400).json({ message: "El nombre es obligatorio." }); 
     if (!description)return res.status(400).json({ message: "La descripción es obligatoria." }); 
     if (!image_url)return res.status(400).json({ message: "La imagen es obligatoria." });
     if (!price)return res.status(400).json({ message: "El precio es obligatorio."})
     try {
+      const brand = await Brands.findByPk(brandId);
+      if (!brand)  return res.status(404).json({ message: "Marca no encontrada." });
       const newProduct = await Products.create({
         name,
         description,
         image_url,
         price,
+        brandId
       });
       res.status(201).json(newProduct);
     } 

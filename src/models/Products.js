@@ -30,6 +30,7 @@ Products.init({
       model: "brands",
       key: "id",
     },
+    allowNull: false,
   },
 
 }, { sequelize: sequelize, modelName: "products", timestamps: false })

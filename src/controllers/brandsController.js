@@ -46,9 +46,7 @@ const brandsController = {
       const brand = await Brands.findByPk(id);
       if (!brand)return res.status(404).json({ message: "Marca no encontrada." });
       const products = await Products.count ({where: {id}})
-      if (products > 0) {
-        return res.status(400).json({ message: "No se puede eliminar la marca porque tiene productos asociados." });
-      }
+      if (products > 0)return res.status(400).json({ message: "No se puede eliminar la marca porque tiene productos asociados. Para eliminar, asigna los productos de esta marca a otra marca" }); 
       await brand.destroy();
       res.json({ message: "Marca eliminada con éxito." });
     } 
