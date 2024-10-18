@@ -4,7 +4,8 @@ const { Products, Brands } = models;
 
 const productsController = {
   createProducts: async (req, res) => {
-    const { name, description, image_url, price, brandId } = req.body;    
+    const { name, description, image_url, price, brandId } = req.body;
+    console.log(req.body)
     if (!brandId)return res.status(400).json({ message: "La marca es obligatoria." }); 
     if (!name)return res.status(400).json({ message: "El nombre es obligatorio." }); 
     if (!description)return res.status(400).json({ message: "La descripción es obligatoria." }); 
@@ -26,7 +27,6 @@ const productsController = {
       console.error(error);
       res.status(500).json({ message: "Error al crear el producto." });
     }
-  
   },
   updateProduct: async (req, res) => {
     const { id } = req.params;
@@ -72,7 +72,10 @@ const productsController = {
       res.json({
         id: product.id,
         name: product.name,
+        description: product.description,
         image_url: product.image_url,
+        price: product.price,
+        brandId: product.brandId
       });
     } catch (error) {
       console.error(error);
@@ -85,8 +88,10 @@ const productsController = {
         attributes: [
           "id",
           "name",
+          "description",
           "image_url",
           "price",
+          "brandId"
         ],
       });
       res.json(products);
@@ -102,7 +107,7 @@ const productsController = {
       const products = await Products.findAll({
         where: { brandId: brandId },
         attributes: [
-          'id', 'name', 'description', 'image_url', 'price', 
+          "id", "name", "description", "image_url", "price", "brandId"
         ]
       });
       if (products.length === 0)return res.status(404).json({ message: "No se encontraron productos para la marca indicada." }); 

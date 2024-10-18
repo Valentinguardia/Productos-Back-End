@@ -5,6 +5,7 @@ const { Products, Brands } = models;
 const brandsController = {
   createBrands: async (req, res) => {
     const { name, logo_url } = req.body;    
+    console.log(req.body)
     if (!name)return res.status(400).json({ message: "El nombre es obligatorio." }); 
     if (!logo_url)return res.status(400).json({ message: "El logo es obligatorio." });
     try {
@@ -32,7 +33,7 @@ const brandsController = {
         logo_url: logo_url ?? brand.logo_url,
       };
       await brand.update(updatedData);
-      res.json({ message: 'Marca actualizada con éxito.', product: updatedData });
+      res.json({ message: 'Marca actualizada con éxito.', brand: updatedData });
     } 
     catch (error) {
       console.error(error);
@@ -45,7 +46,7 @@ const brandsController = {
     try {
       const brand = await Brands.findByPk(id);
       if (!brand)return res.status(404).json({ message: "Marca no encontrada." });
-      const products = await Products.count ({where: {id}})
+      const products = await Products.count ({where: {brandId: id}})
       if (products > 0)return res.status(400).json({ message: "No se puede eliminar la marca porque tiene productos asociados. Para eliminar, asigna los productos de esta marca a otra marca" }); 
       await brand.destroy();
       res.json({ message: "Marca eliminada con éxito." });
