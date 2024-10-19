@@ -1,8 +1,7 @@
-import models from "../models/index.js";
+import { User } from "../models/index.js";
 import bcrypt from "bcrypt"
 import { generateToken } from "../config/tokens.js";
 
-const { User } = models;
 const userController = {
   register: async (req, res) => {
     const { fullName, email, password, confirmPassword } = req.body;

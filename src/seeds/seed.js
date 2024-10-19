@@ -1,3 +1,6 @@
+//npm run seed
+import bcrypt from "bcrypt"
+
 export const brands = [
   { name: "Marca 1", logo_url: "https://via.placeholder.com/150" },
   { name: "Marca 2", logo_url: "https://via.placeholder.com/150" },
@@ -151,10 +154,10 @@ export const products = [
     image_url: "https://via.placeholder.com/150",
   },
 ];
+
+const hashedPassword = await bcrypt.hash("admin1234", 10); 
 export const users = {
   fullName: "testuser",
   email: "admin@admin.com",
-  password: "admin1234",
+  password: hashedPassword,
 };
-
-

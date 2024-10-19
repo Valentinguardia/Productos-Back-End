@@ -1,6 +1,4 @@
-import models from "../models/index.js";
-
-const { Products, Brands } = models;
+import { Products, Brands } from "../models/index.js";
 
 const productsController = {
   createProducts: async (req, res) => {

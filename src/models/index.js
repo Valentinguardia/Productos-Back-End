@@ -5,4 +5,4 @@ import Brands from "./Brands.js";
 Brands.hasMany(Products, {foreignKey: "brandId", onDelete: 'SET NULL'})
 Products.belongsTo(Brands, {foreignKey: "brandId", onDelete: 'SET NULL'})
 
-export default { Products, User, Brands }
+export { Products, User, Brands };

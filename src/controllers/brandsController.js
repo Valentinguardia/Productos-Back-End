@@ -1,6 +1,4 @@
-import models from "../models/index.js";
-
-const { Products, Brands } = models;
+import { Products, Brands } from "../models/index.js";
 
 const brandsController = {
   createBrands: async (req, res) => {
@@ -47,7 +45,7 @@ const brandsController = {
       const brand = await Brands.findByPk(id);
       if (!brand)return res.status(404).json({ message: "Marca no encontrada." });
       const products = await Products.count ({where: {brandId: id}})
-      if (products > 0)return res.status(400).json({ message: "No se puede eliminar la marca porque tiene productos asociados. Para eliminar, asigna los productos de esta marca a otra marca o eliminalos." }); 
+      if (products > 0)return res.status(400).json({ message: "No se puede eliminar la marca porque tiene productos asociados." }); 
       await brand.destroy();
       res.json({ message: "Marca eliminada con éxito." });
     } 
