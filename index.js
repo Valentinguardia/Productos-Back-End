@@ -14,7 +14,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use(express.urlencoded({ extended: true }));
-app.use( cors({ origin: corsOrigin, credentials: true }) );
+app.use( cors({ origin: corsOrigin, methods: ['GET', 'POST', 'PUT', 'DELETE'], credentials: true }) );
 app.use("/", router);
 app.use((err, req, res, next) => {
   console.error(err);
