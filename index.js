@@ -6,8 +6,8 @@ import sequelize from "./src/config/db.js";
 import router from "./src/routes/index.js";
 
 const app = express();
-const corsOrigin = process.env.CORS_ORIGIN || "http://localhost:3001";
-const serverHost = process.env.SERVER_HOST || "http://localhost:3000";
+const corsOrigin = process.env.CORS_ORIGIN || "https://productos-front-end-d7xm.vercel.app";
+const serverHost = process.env.SERVER_HOST 
 const serverPort = process.env.SERVER_PORT || 3000;
 
 app.use(cookieParser());
