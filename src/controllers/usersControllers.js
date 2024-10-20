@@ -50,7 +50,7 @@ const userController = {
   },
   logout: (req, res) => {
     if (!req.cookies.token)return res.status(400).json({ message: "No hay sesión iniciada." }); 
-    res.clearCookie("token");
+    res.clearCookie("token", { httpOnly: true, secure: true, sameSite: 'None' });
     res.status(204).json({ message: "Deslogueado correctamente" });
   },
   me: async (req, res) => {
